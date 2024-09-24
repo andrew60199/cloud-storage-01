@@ -1,0 +1,15 @@
+{
+  "name": "cloud-storage-01",
+  "version": "1.0.0",
+  "description": "Learning how to go about cloud storage",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
