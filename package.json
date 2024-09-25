@@ -4,7 +4,8 @@
   "description": "Learning how to go about cloud storage",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\""
+    "start": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
+    "install": "cd server && npm i && cd ../client && npm i"
   },
   "keywords": [],
   "author": "",
