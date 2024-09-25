@@ -4,6 +4,9 @@ import { useState } from 'react'
 import Header from './components/Header'
 import './styles.css'
 
+import AccessiblePhotos from './components/AccessiblePhotos'
+import UserSection from './components/UserSection'
+
 function App() {
   const [user, setUser] = useState<User | null>(null)
   const baseURL = 'http://localhost:3001/api/'
@@ -15,6 +18,8 @@ function App() {
   return (
     <>
       <Header user={user} onSetUser={handleSetUser} baseURL={baseURL} />
+      {user && <UserSection />}
+      <AccessiblePhotos />
     </>
   )
 }
