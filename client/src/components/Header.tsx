@@ -33,11 +33,11 @@ export default function Header({ user, onSetUser, baseURL }: { user: User | null
     }
 
     return (
-        <header>
+        <header className="flex space-between align-items-center">
             <img src="" alt="Website logo"/>
             {user 
-                ?   <div>
-                        <p>Welcome back {user.email}</p>
+                ?   <div className="flex space-between align-items-center">
+                        <p className="padding-0100 margin-0">{user.email}</p>
                         <button onClick={() => onSetUser(null)}>Log out</button>
                     </div>
                 :   <form onSubmit={handleLogin}>
