@@ -32,7 +32,7 @@ When I enter the site.
 #### 1
 Then I am presented with a logo loaded from a publicly accessible cloud storage bucket.
 
-#### 2
+#### 2 ✅
 Then I am presented an option to log in.
 
 #### 3
@@ -42,7 +42,7 @@ Then I am presented with a list of photos uploaded by users of the web app who s
 Given I am logged in to the web app.
 When logged in.
 
-#### 1 
+#### 1 ✅
 Then I am presented with the option to log out.
 
 #### 2

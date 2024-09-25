@@ -16,7 +16,7 @@ export default function Header({ user, onSetUser, baseURL }: { user: User | null
             const response = await API.post('user/login', { email, password })
             if (response.ok) {
                 const data = await response.json()
-                console.log(data)
+                // console.log(data)
 
                 onSetUser(data.user)
                 setEmail('')
