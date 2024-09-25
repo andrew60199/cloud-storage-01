@@ -18,7 +18,9 @@ export default function Header({ user, onSetUser, baseURL }: { user: User | null
                 const data = await response.json()
                 console.log(data)
 
-                // DO SOMETHING
+                onSetUser(data.user)
+                setEmail('')
+                setPassword('')
 
             } else {
                 alert('Incorrect email or password')
