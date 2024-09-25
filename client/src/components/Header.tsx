@@ -34,7 +34,7 @@ export default function Header({ user, onSetUser, baseURL }: { user: User | null
 
     return (
         <header className="flex space-between align-items-center">
-            <img src="" alt="Website logo"/>
+            <img src="/REMMDESIGNS-202.svg" alt="Website logo" height={40}/>
             {user 
                 ?   <div className="flex space-between align-items-center">
                         <p className="padding-0100 margin-0">{user.email}</p>
