@@ -4,7 +4,7 @@ export default function UserSection () {
     const [file, setFile] = useState<File | null>(null)
     
     useEffect(() => {
-        console.log(file)
+        // console.log(file)
         if (file) {
             handlePreview()
         }
@@ -17,7 +17,7 @@ export default function UserSection () {
             const preview = document.querySelector('#preview')
             const img = document.createElement("img")
             img.src = URL.createObjectURL(file)
-            img.height = 400
+            img.classList.add('width-100')
             img.onload = () => {
                 URL.revokeObjectURL(img.src)
             }
@@ -60,7 +60,12 @@ export default function UserSection () {
                 preview.removeChild(preview.firstChild);
             }
         }
-        
+    }
+
+    const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault()
+
+        console.log('Trying to upload image')
     }
 
     return (
@@ -71,16 +76,22 @@ export default function UserSection () {
                     <div>
                         {file
                             ?   <>
-                                    {/* REPLACE DRAG AND DROP BOX AND BUTTON WITH IMAGE SELECTED */}
-                                    <div id="preview"></div>
-                                    <button onClick={handleRemove}>Cancel uploading this photo</button>
-                                    
-                                    {/* SELECT WHO CAN SEE THE PHOTO */}
-                                    {/* SUBMIT BUTTON */}
+                                    <div className="flex justify-content-space-between">
+                                        <button className="secondary-button" onClick={handleRemove}>Cancel</button>
+                                        <button className="primary-button" onClick={handleSubmit}>Upload</button>
+                                    </div>
+                                    <div className='grid-row-col'>
+                                        <div id="preview">
+                                            {/* IMAGE LOADED HERE */}
+                                        </div>
+                                        <div>
+                                            {/* SELECT WHO CAN SEE THE PHOTO */}
+                                        </div>
+                                    </div>                                
                                 </>
-                            :   <>
+                            :   <div className="flex flex-direction-column align-items-center ">
                                     <div 
-                                        className="drag-drop" 
+                                        className="drag-drop width-100" 
                                         onDrop={e => drop(e)}
                                         onDragOver={e => drop(e)}
                                         onDragEnter={e => drop(e)}
@@ -97,8 +108,8 @@ export default function UserSection () {
                                         className="visually-hidden"
                                     />
                                     {/* IMPROVE STYLING */}
-                                    <label htmlFor="fileElem">Select some files</label>
-                                </>
+                                    <label htmlFor="fileElem" className="primary-button">Select some files</label>
+                                </div>
                         }
                     </div>
                 </form>

@@ -13,8 +13,11 @@ section {
 }
 
 .flex { display: flex; }
-.space-between { justify-content: space-between; }
+.flex-direction-column { flex-direction: column; }
+.justify-content-space-between { justify-content: space-between; }
 .align-items-center { align-items: center; }
+
+.width-100 { width: 100%; }
 
 .padding-0100 { padding: 0 1rem 0 0; }
 
@@ -37,5 +40,43 @@ input.visually-hidden:is(:focus, :focus-within) + label {
     justify-content: center;
     align-items: center;
     height: 400px; 
-    border: 3px dashed gray
+    border: 3px dashed gray;
+    border-radius: 1rem;
+}
+
+.primary-button,
+.secondary-button {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 1rem 0;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    border: none;
+}
+
+.primary-button {
+    background-color: #333;
+    color: white;
+}
+
+.secondary-button {
+    background-color: lightgrey;
+    color: black;
+}
+
+.grid-row-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 1rem;
+}
+
+@media screen and (min-width: 750px) {
+    .grid-row-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+        row-gap: 1rem;
+    }
 }
