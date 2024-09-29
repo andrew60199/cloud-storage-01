@@ -30,4 +30,18 @@ router.post('/login', async (req, res) => {
   }  
 })
 
+router.get('/all', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'email']
+    })
+    const usersPlain = users.map(user => user.get({ plain: true }))
+    return res.status(200).json({ users: usersPlain })
+    
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({ message: 'Server error. Please try again later.' })
+  }
+})
+
 module.exports = router
