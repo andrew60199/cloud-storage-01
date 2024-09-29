@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <Header user={user} onSetUser={handleSetUser} baseURL={baseURL} />
-      {user && <UserSection />}
+      {user && <UserSection baseURL={baseURL} />}
       <AccessiblePhotos />
     </>
   )

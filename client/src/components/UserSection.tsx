@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react"
 
-export default function UserSection () {
+import FetchWrapper from "../util/fetch-wrapper"
+
+export default function UserSection ({ baseURL }: { baseURL: string }) {
     const [file, setFile] = useState<File | null>(null)
+    const [privacy, setPrivacy] = useState('')
+
+    const API = new FetchWrapper(baseURL)
     
     useEffect(() => {
         // console.log(file)
@@ -11,7 +16,16 @@ export default function UserSection () {
 
     }, [file])
 
+    useEffect(() => {
+        if (privacy === 'limited') {
+            handleGetUsers()
+        }
+
+    }, [privacy])
+
     const handlePreview = () => {
+        setPrivacy('')
+
         if (file) {
             // THERE IS PROBABLY A BETTER WAY OF DOING THIS YET THIS WORKS FOR THE TIME BEING
             const preview = document.querySelector('#preview')
@@ -68,6 +82,25 @@ export default function UserSection () {
         console.log('Trying to upload image')
     }
 
+    const handleGetUsers = async () => {
+        try {
+            const response = await API.get('user/all')
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data)
+
+
+            } else {
+                alert('Server error. Please try again later.')
+            }
+
+        } catch (error) {
+            alert('Server error. Please try again later.')
+
+        }
+
+    }
+
     return (
         <>
             <section>
@@ -84,10 +117,27 @@ export default function UserSection () {
                                         <div id="preview">
                                             {/* IMAGE LOADED HERE */}
                                         </div>
-                                        <div>
+                                        <div className="flex flex-direction-column">
                                             {/* SELECT WHO CAN SEE THE PHOTO */}
+                                            <div className="padding-1000">
+                                                <label>Who would you like to see this upload?</label>
+                                                <select
+                                                    onChange={(event) => setPrivacy(event.target.value)}
+                                                    required
+                                                >
+                                                    <option value="">Select privacy option</option>
+                                                    <option value="public">Everyone</option>
+                                                    <option value="limited">Only a select few</option>
+                                                </select>
+                                            </div>
+                                            {privacy === 'limited' &&
+                                                <div className="padding-1000">
+                                                    <label>Which users would you like to share your photo with?</label>
+
+                                                </div>
+                                            }
                                         </div>
-                                    </div>                                
+                                    </div>
                                 </>
                             :   <div className="flex flex-direction-column align-items-center ">
                                     <div 
