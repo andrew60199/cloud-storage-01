@@ -1,10 +1,20 @@
+import type { User } from "../util/models"
+
+type Users = {
+    id: number,
+    email: string
+}
+
 import { useEffect, useState } from "react"
 
 import FetchWrapper from "../util/fetch-wrapper"
 
-export default function UserSection ({ baseURL }: { baseURL: string }) {
+export default function UserSection ({ user, baseURL }: { user: User | null, baseURL: string }) {
     const [file, setFile] = useState<File | null>(null)
     const [privacy, setPrivacy] = useState('')
+    // const [users, setUsers] = useState<Users[] | null>(null)
+    const [sharing, setSharing] = useState<string[]>([])
+    const [userEmail, setUserEmail] = useState('')
 
     const API = new FetchWrapper(baseURL)
     
@@ -16,15 +26,21 @@ export default function UserSection ({ baseURL }: { baseURL: string }) {
 
     }, [file])
 
-    useEffect(() => {
-        if (privacy === 'limited') {
-            handleGetUsers()
-        }
+    // useEffect(() => {
+    //     if (privacy === 'limited') {
+    //         handleGetUsers()
+    //     }
 
-    }, [privacy])
+    // }, [privacy])
+
+    useEffect(() => {
+        console.log(sharing)
+
+    }, [sharing])
 
     const handlePreview = () => {
         setPrivacy('')
+        setSharing([])
 
         if (file) {
             // THERE IS PROBABLY A BETTER WAY OF DOING THIS YET THIS WORKS FOR THE TIME BEING
@@ -80,25 +96,34 @@ export default function UserSection ({ baseURL }: { baseURL: string }) {
         e.preventDefault()
 
         console.log('Trying to upload image')
+
+        // If limited make sure there is at least one person added to shared list
+        
     }
 
-    const handleGetUsers = async () => {
-        try {
-            const response = await API.get('user/all')
-            if (response.ok) {
-                const data = await response.json()
-                console.log(data)
+    // No longer used fetch
+    // const handleGetUsers = async () => {
+    //     try {
+    //         const response = await API.get('user/all')
+    //         if (response.ok) {
+    //             const data = await response.json()
+    //             // console.log(data)
+    //             setUsers(data.users)
+    //         } else {
+    //             alert('Server error. Please try again later.')
+    //         }
+    //     } catch (error) {
+    //         alert('Server error. Please try again later.')
+    //     }
+    // }
 
+    const handleAddUsers = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault()
 
-            } else {
-                alert('Server error. Please try again later.')
-            }
+        // Cant be their email and repeat...
+        setSharing([...sharing, userEmail])
 
-        } catch (error) {
-            alert('Server error. Please try again later.')
-
-        }
-
+        setUserEmail('')
     }
 
     return (
@@ -133,14 +158,31 @@ export default function UserSection ({ baseURL }: { baseURL: string }) {
                                             {privacy === 'limited' &&
                                                 <div className="padding-1000">
                                                     <label>Which users would you like to share your photo with?</label>
-
+                                                    <input
+                                                        type="email"
+                                                        placeholder="name@email.com"
+                                                        value={userEmail}
+                                                        onChange={(event) => setUserEmail(event.target.value)}
+                                                    ></input>
+                                                    <button onClick={handleAddUsers}>Add</button>
+                                                    {sharing.length > 0 &&
+                                                        <>
+                                                            <p>Sharing with*</p>
+                                                            <ul>
+                                                                {sharing.map(share => {
+                                                                    return <li>{share}</li>
+                                                                })} 
+                                                            </ul>
+                                                            <p>*If they have an account on our platform.</p>
+                                                        </>
+                                                    }
                                                 </div>
                                             }
                                         </div>
                                     </div>
                                 </>
                             :   <div className="flex flex-direction-column align-items-center ">
-                                    <div 
+                                    <div
                                         className="drag-drop width-100" 
                                         onDrop={e => drop(e)}
                                         onDragOver={e => drop(e)}
