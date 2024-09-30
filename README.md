@@ -25,17 +25,24 @@ To run the front and back end concurrently, use the command
 `npm run start` 
 
 ## Acceptance Criteria
+**Legend**
+| Icon | Description |
+| ----------- | ----------- |
+| 🆕 | New and yet to be started |
+| 🚧 | This feature and or functionality has been started / is being worked on / isn't quite finished |
+| ✅ | Successfully created |
+
 ### Scenario 1
 Given entry to the web app.
 When I enter the site.
 
-#### 1
+#### 1 🆕
 Then I am presented with a logo loaded from a publicly accessible cloud storage bucket.
 
 #### 2 ✅
 Then I am presented an option to log in.
 
-#### 3
+#### 3 🆕
 Then I am presented with a list of photos uploaded by users of the web app who set their upload to publicly accessible.
 
 ### Scenario 2 
@@ -45,13 +52,13 @@ When logged in.
 #### 1 ✅
 Then I am presented with the option to log out.
 
-#### 2
+#### 2 ✅
 Then I am presented with a form to upload a photo to the cloud.
 
-#### 3
+#### 3 🆕
 Then I am presented with a list of photos I have uploaded.
 
-#### 4 
+#### 4 🆕
 Then I am presented with a list of photos I have access to view with the details as to whether that photo was shared with me or is publicly accessible.
 
 ### Scenario 3
@@ -63,7 +70,7 @@ Then I am presented with an option to select a photo to upload ✅, decide who c
 ### Scenario 4
 When viewing a photo I uploaded.
 
-#### 1
+#### 1 🆕
 Then I have the option to delete it so it is no longer stored on the cloud storage.
 
 ## Technology
