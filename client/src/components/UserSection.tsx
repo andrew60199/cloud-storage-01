@@ -26,13 +26,6 @@ export default function UserSection ({ user, baseURL }: { user: User | null, bas
 
     }, [file])
 
-    // useEffect(() => {
-    //     if (privacy === 'limited') {
-    //         handleGetUsers()
-    //     }
-
-    // }, [privacy])
-
     useEffect(() => {
         console.log(sharing)
 
@@ -101,26 +94,11 @@ export default function UserSection ({ user, baseURL }: { user: User | null, bas
         
     }
 
-    // No longer used fetch
-    // const handleGetUsers = async () => {
-    //     try {
-    //         const response = await API.get('user/all')
-    //         if (response.ok) {
-    //             const data = await response.json()
-    //             // console.log(data)
-    //             setUsers(data.users)
-    //         } else {
-    //             alert('Server error. Please try again later.')
-    //         }
-    //     } catch (error) {
-    //         alert('Server error. Please try again later.')
-    //     }
-    // }
-
     const handleAddUsers = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
 
-        // Cant be their email and repeat...
+        // Since this application is only for learning purposes we won't be doing all the checks we usually would.
+        // Here we would need to check: duplicates, not the same as the current user, an actual email address, etc
         setSharing([...sharing, userEmail])
 
         setUserEmail('')
