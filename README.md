@@ -57,8 +57,8 @@ Then I am presented with a list of photos I have access to view with the details
 ### Scenario 3
 When filling in the form.
 
-#### 1
-Then I am presented with an option to select a photo to upload, decide who can see the photo (specify specific users or everyone) and submit it to the cloud storage.
+#### 1 🚧
+Then I am presented with an option to select a photo to upload ✅, decide who can see the photo (specify specific users or everyone) ✅ and submit it to the cloud storage.
 
 ### Scenario 4
 When viewing a photo I uploaded.
