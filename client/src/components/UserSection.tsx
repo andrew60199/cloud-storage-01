@@ -1,10 +1,5 @@
 import type { User } from "../util/models"
 
-type Users = {
-    id: number,
-    email: string
-}
-
 import { useEffect, useState } from "react"
 
 import FetchWrapper from "../util/fetch-wrapper"
@@ -12,7 +7,6 @@ import FetchWrapper from "../util/fetch-wrapper"
 export default function UserSection ({ user, baseURL }: { user: User | null, baseURL: string }) {
     const [file, setFile] = useState<File | null>(null)
     const [privacy, setPrivacy] = useState('')
-    // const [users, setUsers] = useState<Users[] | null>(null)
     const [sharing, setSharing] = useState<string[]>([])
     const [userEmail, setUserEmail] = useState('')
 
@@ -25,11 +19,6 @@ export default function UserSection ({ user, baseURL }: { user: User | null, bas
         }
 
     }, [file])
-
-    useEffect(() => {
-        console.log(sharing)
-
-    }, [sharing])
 
     const handlePreview = () => {
         setPrivacy('')
@@ -85,13 +74,29 @@ export default function UserSection ({ user, baseURL }: { user: User | null, bas
         }
     }
 
-    const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
 
-        console.log('Trying to upload image')
-
-        // If limited make sure there is at least one person added to shared list
+        if (!file) return alert('Please select an image to upload.')
+        if (!privacy) return alert('Please select a privacy option.')
+        if ((privacy === 'limited') && (sharing.length < 1)) return alert('Please enter at least one person to share the image with.')
         
+        console.log('Trying to upload the following to the server and cloud', 'FILE:', file, 'PRIVACY:', privacy, 'SHARING:', sharing)
+
+        try {
+            const response = await API.post('image/upload', { user, file, privacy, sharing })
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data)
+
+            } else {
+                alert('Server error. Please try again later.')
+            }
+
+        } catch (error) {
+            alert('Server error. Please try again later.')
+
+        }
     }
 
     const handleAddUsers = (e: React.MouseEvent<HTMLElement>) => {
